@@ -2,8 +2,8 @@ body{
     background-color: lightgray;
     margin-right: 0px;
     align-content: center;
-    min-width: 100vw;
-    min-height: 100vh;
+    min-width: 99vh;
+    min-height: 95vh;
     display: flex;
   
 }
