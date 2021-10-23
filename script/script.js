@@ -8,6 +8,7 @@ document.querySelector("#prod-info").textContent = `SimpleCalc v ${appVersion}`;
 
 window.addEventListener("click", mouseClick);
 window.addEventListener("keydown", keyPress);
+
 let numArray = [];
 let numArrayIdx = 0;
 let tmpNumArray = [];
@@ -139,6 +140,5 @@ function getResult(num1, num2, operator){
             console.log("Last Operator: "+lastOperator);
             return NaN;
     }
-    alert(result);
     return ("" + result);
 }
