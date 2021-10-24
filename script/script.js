@@ -75,8 +75,22 @@ function mouseClick(event){
                 break;
             default:
                 console.log("Logic Problem. Should not be here!");
-                console.log("Button Pressed: " + currentButton);
+                console.log("Button Pressed (action-key): " + currentButton);
                 break;
+            }
+            markOperator(operator);
+            if(lastNum === ""){
+                lastNum = currNum;
+                currNum = 0;
+                tmpNumArray = [];
+                refreshDisplay();
+            } else{
+                currNum = getResult(lastNum, currNum, lastOperator);
+                lastOperator = operator === "=" ? "": operator;
+                lastNum = "";
+                tmpNumArray=[];    
+                refreshDisplay();
+            }        
         } else {
             switch(currentButton){
                 case "MR":
@@ -88,31 +102,17 @@ function mouseClick(event){
                     break;
                 case "M-":
                     memoryNum = getResult(memoryNum, currNum, "-");
-                    break:
+                    break;
                 case "AC":
                     initCalculator();
                     refreshDisplay();
                     break;
                 default:
                     console.log("Logic Problem. Should not be here!");
-                    console.log("Button Pressed: " +currentButton);
+                    console.log("Button Pressed (spl-key): " +currentButton);
             }
         };
-        markOperator(operator);
-        if(lastNum === ""){
-            lastNum = currNum;
-            currNum = 0;
-            tmpNumArray = [];
-            refreshDisplay();
-        } else{
-            currNum = getResult(lastNum, currNum, lastOperator);
-            lastOperator = operator === "=" ? "": operator;
-            lastNum = "";
-            tmpNumArray=[];    
-            refreshDisplay();
-        }        
     }
-};
 
 function markOperator(ops){
     let tmpArray = Array.from(actionKeys);
