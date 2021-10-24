@@ -57,7 +57,7 @@ body{
     justify-items: center;
 }
 
-.num-key, .action-key{
+.num-key, .action-key, .spl-key {
     font-size: 2rem;
     height: 4rem;
     width: 3.5rem;
@@ -71,4 +71,9 @@ body{
 .num-key{
     color: black;
     background-color: #adadad;
+}
+
+.spl-key{
+    color: white;
+    background-color: #282a36;
 }
