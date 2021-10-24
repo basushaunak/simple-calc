@@ -17,6 +17,7 @@ let currNum = "";
 let lastKey = "";
 let lastOperator = "";
 let operator = "";
+let memoryNum = "";
 const numberKeys = document.querySelectorAll(".num-key");
 const actionKeys = document.querySelectorAll(".action-key");
 
@@ -50,7 +51,7 @@ function mouseClick(event){
         tmpNumArray.push(currentButton);
         currNum = tmpNumArray.join("");
         refreshDisplay();
-    }else{
+    }else if(event.target.classList.contains("action-key")){
         switch(currentButton){
             case "-":
                 lastOperator=operator;
@@ -76,6 +77,26 @@ function mouseClick(event){
                 console.log("Logic Problem. Should not be here!");
                 console.log("Button Pressed: " + currentButton);
                 break;
+        } else {
+            switch(currentButton){
+                case "MR":
+                    currNum=memoryNum;
+                    refreshDisplay();
+                    break;
+                case "M+":
+                    memoryNum = currNum;
+                    break;
+                case "M-":
+                    memoryNum = getResult(memoryNum, currNum, "-");
+                    break:
+                case "AC":
+                    initCalculator();
+                    refreshDisplay();
+                    break;
+                default:
+                    console.log("Logic Problem. Should not be here!");
+                    console.log("Button Pressed: " +currentButton);
+            }
         };
         markOperator(operator);
         if(lastNum === ""){
@@ -118,7 +139,10 @@ function initCalculator(){
     lastKey = "";
     lastOperator = "";
     operator = "";
+    memoryNum = "";
 }
+// Need to work on negative numbers, i.e. 10 X (-) 5 
+// and pressing of two operators (except +/-)
 
 function getResult(num1, num2, operator){
     let result = 0;
