@@ -19,15 +19,27 @@ body{
     border-radius: 5%;
     background-color: #c2c2c2;
 }
+#top-row{
+    display: grid;
+    grid-template-columns: 1fr 15fr;
+    margin-top: 0.25rem;
+    margin-right: 1rem;
+    margin-left: 1rem;
+}
+#mem-indicator {
+    align-self: flex-start;
+    text-align: left;
+    color: red;
+    opacity: 0;
+}
 #prod-info{
     color: black;
     font-style: italic;
     font-weight: bold;
     font-size: 0.75rem;
     text-align: right;
-    margin-top: 0.25rem;
-    margin-right: 1rem;
     align-self: flex-end;
+    text-align: right;
 }
 #calculator-display{
     flex: 1;
@@ -81,6 +93,7 @@ body{
     grid-template-rows: 1;
     align-items: center;
     justify-items: center;
+    border: 2px black solid;
 }
 
 .num-key, .action-key {
@@ -117,10 +130,11 @@ body{
     color: #000000;
     text-align: right;
     margin: 0px;
-    margin-bottom: 0.75rem;
-    border: 1px solid #353535;
+    margin-bottom: 0.25rem;
+    margin-right: 0.25rem;
     padding-left: 00.5rem;
     padding-right: 00.5rem;
     padding-top: 0.25rem;
     padding-bottom: 00.25rem;
+    align-self: flex-end;
 }

@@ -29,6 +29,11 @@ function keyPress(event){
     if(keyCode === 27){
         initCalculator();
         refreshDisplay();
+        showMemoryStatus();
+        return;
+    }
+    if(keyCode === 8){
+        backSpace();
         return;
     }
     let btnPressed = document.querySelector(`button[data-key="${keyCode}"]`);
@@ -52,8 +57,17 @@ function mouseClick(event){
         currNum = tmpNumArray.join("");
         refreshDisplay();
     }else if(event.target.classList.contains("action-key")){
-        switch(currentButton){
+        switch(currentButton){            
             case "-":
+                if(currNum.length === 0){
+                    console.log(currNum.length);
+                    tmpNumArray.push("-");
+                    currNum="-";
+                    refreshDisplay();
+                    alert(currNum);
+                    operator="";
+                    break;
+                }
                 lastOperator=operator;
                 operator = "-";
                 break;
@@ -70,6 +84,10 @@ function mouseClick(event){
                 operator = "X";
                 break;
             case "=" :
+                if(operator === "=" || operator === ""){
+                    operator = "";
+                    break;
+                }
                 lastOperator=operator;
                 operator = "=";
                 break;
@@ -79,17 +97,19 @@ function mouseClick(event){
                 break;
             }
             markOperator(operator);
-            if(lastNum === ""){
-                lastNum = currNum;
-                currNum = 0;
-                tmpNumArray = [];
-                refreshDisplay();
-            } else{
-                currNum = getResult(lastNum, currNum, lastOperator);
-                lastOperator = operator === "=" ? "": operator;
-                lastNum = "";
-                tmpNumArray=[];    
-                refreshDisplay();
+            if(operator !== ""){
+                if(lastNum === ""){
+                    lastNum = currNum;
+                    currNum = 0;
+                    tmpNumArray = [];
+                    refreshDisplay();
+                } else{
+                    currNum = getResult(lastNum, currNum, lastOperator);
+                    lastOperator = operator === "=" ? "": operator;
+                    lastNum = "";
+                    tmpNumArray=[];    
+                    refreshDisplay();
+                }
             }        
         } else {
             switch(currentButton){
@@ -97,8 +117,11 @@ function mouseClick(event){
                     currNum=memoryNum;
                     refreshDisplay();
                     break;
+                case "MC":
+                    memoryNum="";
+                    break;
                 case "M+":
-                    memoryNum = currNum;
+                    memoryNum = getResult(memoryNum, currNum, "+");
                     break;
                 case "M-":
                     memoryNum = getResult(memoryNum, currNum, "-");
@@ -106,11 +129,13 @@ function mouseClick(event){
                 case "AC":
                     initCalculator();
                     refreshDisplay();
+                    showMemoryStatus();
                     break;
                 default:
                     console.log("Logic Problem. Should not be here!");
                     console.log("Button Pressed (spl-key): " +currentButton);
-            }
+            };
+            showMemoryStatus();
         };
     }
 
@@ -140,6 +165,7 @@ function initCalculator(){
     lastOperator = "";
     operator = "";
     memoryNum = "";
+    markOperator("");
 }
 // Need to work on negative numbers, i.e. 10 X (-) 5 
 // and pressing of two operators (except +/-)
@@ -151,7 +177,7 @@ function getResult(num1, num2, operator){
             result = (+num1) - (+num2);
             break;
         case "÷":
-            result = (+num1) / (+num2)
+            result = ((+num2)) != 0 ?  (+num1) / (+num2) : "e";
             break;
         case "+":
             result = (+num1) + (+num2)
@@ -165,4 +191,22 @@ function getResult(num1, num2, operator){
             return NaN;
     }
     return ("" + result);
+}
+
+function backSpace(){
+    if(tmpNumArray.length > 0){
+        tmpNumArray.pop();
+        currNum=tmpNumArray.join("");
+        refreshDisplay();
+    }
+
+}
+function showMemoryStatus(){
+    let obj = document.querySelector("#mem-indicator");
+    if (memoryNum == 0){
+        obj.style.opacity = 0;
+    }else{
+        obj.style.opacity = 1;
+    }
+
 }
