@@ -84,6 +84,7 @@ function mouseClick(event){
                 operator = "X";
                 break;
             case "=" :
+                console.log("Case =, operator = "+operator);
                 if(operator === "=" || operator === ""){
                     operator = "";
                     break;
@@ -104,6 +105,7 @@ function mouseClick(event){
                     tmpNumArray = [];
                     refreshDisplay();
                 } else{
+                    console.log("About to calculate as operator is not null and lastNum has value");
                     currNum = getResult(lastNum, currNum, lastOperator);
                     lastOperator = operator === "=" ? "": operator;
                     lastNum = "";
